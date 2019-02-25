@@ -1,0 +1,11 @@
+#include <kipr/botball.h>
+
+int main()
+{
+	motor(0, 60);
+    motor(1, 60);
+	msleep(2500);
+    set_servo_position(1, 1800);
+    msleep(500);
+    set_servo_position(0, 1800);
+}
