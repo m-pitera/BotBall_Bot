@@ -1,0 +1,22 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    enable_servos();
+    set_servo_position(2, 1000);
+    set_servo_position(3,1000);
+    msleep(500);
+	motor(0, 60);
+    motor(1, 60);
+	msleep(2500);
+    ao();
+    
+    set_servo_position(3, 550);
+    msleep(500);
+    set_servo_position(2, 0);
+    msleep(500);
+    printf("test");
+    msleep(1000);
+    disable_servos();
+    return 0;
+}
