@@ -1,9 +1,0 @@
-import java.util.Scanner;
-public class Leona {
-public static void main(String[] args) {
-Scanner name = new Scanner(System.in);
-System.out.print("What is your name?");
-String yes = name.nextLine();
-System.out.println(yes);
-}
-}
