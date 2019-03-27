@@ -1,25 +1,34 @@
-
 #include <kipr/botball.h>
+
+int move_to_river(){
+    // this needs to be filled out
+    return 0;
+}
 
 int rotateL90(){
     // these vals should change after testing so that it's more accurate
     motor(0, 50);
     motor(1, -50);
     msleep(2000);
+    
+    return 0;
 }
 
 int yoink(){
     int yoink_arm = 3;
     int up = 2040;
-    int down = 300;
+    //int down = 300;
     
     rotateL90();
     set_servo_position(yoink_arm, up);
     
     // values should be adjusted after testing
+    // the purpose of this is to move up to prepare for yoink
     motor(0, 60);
     motor(1, 60);
-    msleep(950);
+    msleep(800);
+    
+    // 
     
     return 0;
 }
@@ -34,7 +43,7 @@ int main()
     	// bot moves up to top left of river
         move_to_river();
         
-        count = 0;
+        int count = 0;
         if(analog(0) > threshhold_min && analog(0) < threshhold_max){
             if(count % 2 == 0){
                 count = count + 1;
@@ -43,9 +52,9 @@ int main()
                 yoink();
                 
                 
-                count = count + 1
+                count = count + 1;
             }
-    }
+    	}
         
     
         
