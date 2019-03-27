@@ -1,15 +1,37 @@
+
 #include <kipr/botball.h>
+
+int rotateL90(){
+    // these vals should change after testing so that it's more accurate
+    motor(0, 50);
+    motor(1, -50);
+    msleep(2000);
+}
+
+int yoink(){
+    int yoink_arm = 3;
+    int up = 2040;
+    int down = 300;
+    
+    rotateL90();
+    set_servo_position(yoink_arm, up);
+    
+    // values should be adjusted after testing
+    motor(0, 60);
+    motor(1, 60);
+    msleep(950);
+    
+    return 0;
+}
 
 int main()
 {
-    # these vals need to be tested and checked
-    threshhold_min = 2500;
-    threshhold_max = 3000;
-    yoink_arm = 3;
-    up = 2040;
-    down = 300;
+    // these vals need to be tested and checked
+    int threshhold_min = 2500;
+    int threshhold_max = 3000;
+    
     while(1){
-    	# bot moves up to top left of river
+    	// bot moves up to top left of river
         move_to_river();
         
         count = 0;
@@ -18,9 +40,8 @@ int main()
                 count = count + 1;
             }
             else{
-                # yoink();
-                rotateL90();
-                set_servo_position(yoink_arm, up);
+                yoink();
+                
                 
                 count = count + 1
             }
@@ -28,8 +49,8 @@ int main()
         
     
         
-    # using the range finder it counts the instances that an obj is close to it
-    # once we hit the 2nd intance the bot excecutes the yoink function
+    // using the range finder it counts the instances that an obj is close to it
+    // once we hit the 2nd intance the bot excecutes the yoink function
     
     
     }
