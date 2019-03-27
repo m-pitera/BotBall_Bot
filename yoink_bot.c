@@ -1,37 +1,14 @@
+
 #include <kipr/botball.h>
 
-int move_to_river(){
-    // this needs to be filled out
-    return 0;
-}
+void yoink();
+void move_to_river();
+void rotate(double ratioOfCircle, int power, int direction);
+void moveInMeter(double distance, int power, int direction);
 
-int rotateL90(){
-    // these vals should change after testing so that it's more accurate
-    motor(0, 50);
-    motor(1, -50);
-    msleep(2000);
-    
-    return 0;
-}
-
-int yoink(){
-    int yoink_arm = 3;
-    int up = 2040;
-    //int down = 300;
-    
-    rotateL90();
-    set_servo_position(yoink_arm, up);
-    
-    // values should be adjusted after testing
-    // the purpose of this is to move up to prepare for yoink
-    motor(0, 60);
-    motor(1, 60);
-    msleep(800);
-    
-    // 
-    
-    return 0;
-}
+const double ticksToMeter = 7503.018746;
+const double pi = 3.141592654;
+const double circumfranceOfBot = 0.14*3.141592654;
 
 int main()
 {
@@ -55,13 +32,63 @@ int main()
                 count = count + 1;
             }
     	}
-        
-    
-        
     // using the range finder it counts the instances that an obj is close to it
     // once we hit the 2nd intance the bot excecutes the yoink function
     
     
     }
     return 0;
+}
+
+void move_to_river(){
+    // this needs to be filled out
+}
+
+void rotateL90(){
+    // these vals should change after testing so that it's more accurate
+    motor(0, 50);
+    motor(1, -50);
+    msleep(2000);
+}
+
+void yoink(){
+    int yoink_arm = 3;
+    int up = 2040;
+    int down = 300;
+    
+    rotateL90();
+    set_servo_position(yoink_arm, up);
+    
+    // values should be adjusted after testing
+    // the purpose of this is to move up to prepare for yoink
+    motor(0, 60);
+    motor(1, 60);
+    msleep(800);
+    
+    set_servo_position(yoink_arm, down);
+    
+    // values should be adjusted after testing
+    // the purpose of this is to move back and yoink
+    motor(0, -60);
+    motor(1, -60);
+    msleep(800);
+}
+
+void rotate(double ratioOfCircle, int power, int direction){
+   	cmpc(0);
+    while(gmpc(0) <= ratioOfCircle*circumfranceOfBot*ticksToMeter){
+		motor(0,direction*power);
+    	motor(1,-1*direction*power);
+    } 
+    ao();
+    
+}
+
+void moveInMeter(double distance, int power, int direction){
+   	cmpc(0);
+    while(gmpc(0) <= distance*ticksToMeter){
+		motor(0,direction*power);
+    	motor(1,direction*power);
+    } 
+    ao();
 }
