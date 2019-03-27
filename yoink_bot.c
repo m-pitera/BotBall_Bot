@@ -3,9 +3,12 @@
 
 void yoink();
 void move_to_river();
+void move_to_dropoff();
 void rotate(double ratioOfCircle, int power, int direction);
 void moveInMeter(double distance, int power, int direction);
 
+const int LEFT = 1;
+const int RIGHT = -1;
 const double ticksToMeter = 7503.018746;
 const double pi = 3.141592654;
 const double circumfranceOfBot = 0.14*3.141592654;
@@ -21,21 +24,19 @@ int main()
         move_to_river();
         
         int count = 0;
+        // this doesn't work
         if(analog(0) > threshhold_min && analog(0) < threshhold_max){
             if(count % 2 == 0){
                 count = count + 1;
             }
             else{
-                yoink();
-                
-                
+                yoink();     
                 count = count + 1;
             }
     	}
+
     // using the range finder it counts the instances that an obj is close to it
     // once we hit the 2nd intance the bot excecutes the yoink function
-    
-    
     }
     return 0;
 }
@@ -44,11 +45,8 @@ void move_to_river(){
     // this needs to be filled out
 }
 
-void rotateL90(){
-    // these vals should change after testing so that it's more accurate
-    motor(0, 50);
-    motor(1, -50);
-    msleep(2000);
+void identify_non_burning_hospital(){
+    // camera
 }
 
 void yoink(){
@@ -56,7 +54,7 @@ void yoink(){
     int up = 2040;
     int down = 300;
     
-    rotateL90();
+    rotate(.25, 20, LEFT);
     set_servo_position(yoink_arm, up);
     
     // values should be adjusted after testing
@@ -72,6 +70,8 @@ void yoink(){
     motor(0, -60);
     motor(1, -60);
     msleep(800);
+
+    rotate(.25, 20, RIGHT);
 }
 
 void rotate(double ratioOfCircle, int power, int direction){
