@@ -16,30 +16,34 @@ const double circumfranceOfBot = 0.14*3.141592654;
 int main()
 {
     // these vals need to be tested and checked
-    int threshhold_min = 2500;
-    int threshhold_max = 3000;
+    int threshhold_min = 800;
+    int threshhold_max = 2500;
     
+    printf('start');
     while(1){
     	// bot moves up to top left of river
         move_to_river();
         
+        
         int close_count = 0;
-        bool allow_add = 1;
+        int allow_add = 1;
         
         // in-progress yoink detect
-        if(analog(0) > threshhold_min && analog(0) < threshhold_max){
+        if(analog(2) > threshhold_min && analog(2) < threshhold_max){
             if(allow_add && close_count % 2 == 0){
+                printf('wall count');
                 close_count = close_count + 1;
                 allow_add = 0;
             }
             else if (allow_add && close_count % 2 == 1){
                 printf("yoink");
-                // yoink();
+                yoink();
                 close_count = close_count + 1;
                 allow_add = 0;
             }
     	}
-        else if(analog(0) < threshhold_min){
+        else if(analog(2) < threshhold_min){
+            printf("far detect");
             allow_add = 1;
         }
 
@@ -50,6 +54,7 @@ int main()
 }
 
 void move_to_river(){
+    printf('move to river');
     // this needs to be filled out
 }
 
