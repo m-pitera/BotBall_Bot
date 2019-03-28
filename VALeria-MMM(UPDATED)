@@ -1,0 +1,44 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    create_connect();
+// open camera, identify burning building
+// camera_open_black();
+    int x;
+    x = 0;
+    get_create_rlightbump();
+    get_create_llightbump();
+    set_create_distance(0);
+    get_create_distance();
+    set_create_total_angle(0);
+    set_create_distance(0);
+    while (get_create_total_angle() < 209) {
+        create_drive_direct(-100, 100);
+    }
+    while (get_create_total_angle(209) && get_create_distance() < 540) { 
+        create_drive_direct(200, 200);
+    }
+  
+	// pick up water block using claw:
+    // enable_servos();
+    //set_servo_position(2, 1668);
+    //set_servo_position(3, 1668);
+    //
+    
+    // code for turn right again below
+    
+//while (get_create_total_angle(90)<270) {
+    //create_drive_direct(-200, 200);
+  // }
+//  create_drive_direct(470, 470);                     
+    
+  
+// head toward building on fire
+// --> get_object_center_x(80, 0);
+  //  this time heading forward
+    create_stop();
+    create_disconnect();
+    return 0;
+}
+
