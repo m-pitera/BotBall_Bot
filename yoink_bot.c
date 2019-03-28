@@ -23,17 +23,25 @@ int main()
     	// bot moves up to top left of river
         move_to_river();
         
-        int count = 0;
-        // this doesn't work
+        int close_count = 0;
+        bool allow_add = 1;
+        
+        // in-progress yoink detect
         if(analog(0) > threshhold_min && analog(0) < threshhold_max){
-            if(count % 2 == 0){
-                count = count + 1;
+            if(allow_add && close_count % 2 == 0){
+                close_count = close_count + 1;
+                allow_add = 0;
             }
-            else{
-                yoink();     
-                count = count + 1;
+            else if (allow_add && close_count % 2 == 1){
+                printf("yoink");
+                // yoink();
+                close_count = close_count + 1;
+                allow_add = 0;
             }
     	}
+        else if(analog(0) < threshhold_min){
+            allow_add = 1;
+        }
 
     // using the range finder it counts the instances that an obj is close to it
     // once we hit the 2nd intance the bot excecutes the yoink function
