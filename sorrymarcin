@@ -1,0 +1,137 @@
+#include <kipr/botball.h>
+
+void open_claw();
+void close_claw();
+void lower_arm();
+void lift_arm();
+void reset();
+void color_tracking();
+void colorTracking_red();
+int main()
+{
+    enable_servos();
+    create_connect();
+    camera_open_black();
+// open camera, identify burning building
+// camera_open_black();
+
+    
+    get_create_rlightbump();
+    get_create_llightbump();
+    set_create_distance(0);
+    get_create_distance();
+    set_create_total_angle(0);
+    set_create_distance(0);
+    set_servo_position(3, 500);
+    color_tracking();
+    colorTracking_red();
+    
+    wait_for_light(0);
+
+    while (get_create_total_angle() < 209) {
+        create_drive_direct(-100, 100);
+    }
+    while (get_create_total_angle(209) && get_create_distance() < 540) { 
+        create_drive_direct(200, 200);
+        if (get_create_total_angle(209) && get_create_distance(540) ){
+            enable_servos();
+            set_servo_position(1, 1000);
+            set_servo_position(3, 500);
+            msleep(500);
+            close_claw();
+            lift_arm();
+        }
+    }
+
+  
+	// pick up water block using claw:done
+    
+    // code for turn right again below
+    reset();
+    
+    while (get_create_total_angle(209)<270) {
+    	create_drive_direct(-200, 200);
+  }
+    while (get_create_total_angle(270) && get_create_distance() < 470) {
+        create_drive_direct(200, 200);
+}
+while (get_create_total_angle(270) < 310  &&  get_create_distance() < 410){
+        create_drive_direct(200, 200);
+}
+while (get_create_total_angle(310) > 270  && get_create_distance(410)) {
+        create_drive_direct(200, -200);
+}
+//  create_drive_direct(470, 470);                     
+    reset();
+    
+// head toward building on fire
+ 
+    create_stop();
+    create_disconnect();
+    return 0;
+}
+
+void reset(){
+    get_create_rlightbump();
+    get_create_llightbump();
+    set_create_distance(0);
+    get_create_distance();
+    set_create_total_angle(0);
+    set_create_distance(0);
+
+void open_claw(){ // which servo is for claw, which servo is for arm
+    enable_servos();
+    set_servo_position(2, 500);
+    msleep(500);
+}
+void lower_arm(){
+    enable_servos();
+    set_servo_position(3, 200);
+}
+void lift_arm(){
+    enable_servos();
+    set_servo_position(3, 1020);
+}
+void close_claw(){
+    enable_servos();
+    set_servo_position(2, 1024);
+    msleep(500);
+
+}
+void color_tracking(){
+    camera_open_black();
+    camera_update();
+    get_object_count(1);
+    get_object_center_x(1, 1);
+    if (get_object_count(1) {
+        create_drive_direct(200, -200);
+        create_drive_direct(200, 200);
+    }
+    else if (get_object_count(1)) {
+        create_drive_direct(200, 200);
+    }
+    else (get_object_count(1) {
+        create_drive_direct(-200, 200);
+        create_drive_direct(200, 200);
+    }
+void colorTracking_red(){
+    camera_update();
+    get_object_count(0);
+    get_object_center_x(0,1);
+     if (get_object_count(0) > 80) {
+        create_drive_direct(200, -200);
+        create_drive_direct(200, 200);
+    }
+    else if (get_object_count(0) {
+        create_drive_direct(200, 200);
+    }
+    else (get_object_count(0) {
+        create_drive_direct(-200, 200);
+        create_drive_direct(200, 200);
+
+}
+    }
+    }
+
+
+}
